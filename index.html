@@ -51,6 +51,15 @@
     </nav>
 
     <div class="container-fluid" ng-controller="NotesListCtrl">
+      <!-- Create New Note button -->
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <button type="button" class="btn btn-primary btn-lg btn-block">Create New Note</button>
+          </div>
+        </div>
+      </div>
+      <!-- List of notes -->
       <div class="col-md-4" ng-repeat="note in notes">
         <div class="panel panel-default">
           <div class="panel-heading">
