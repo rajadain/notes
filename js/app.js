@@ -1,6 +1,17 @@
 'use strict';
 
-angular.module('notes-app', [])
+angular.module('notes-app', ['ngRoute'])
+
+  .config(function($routeProvider) {
+    $routeProvider
+      .when('/all', {
+        controller: 'NotesListCtrl',
+        templateUrl: 'views/list.html'
+      })
+      .otherwise({
+        redirectTo: '/all'
+      });
+  })
 
   .controller('NotesListCtrl', function($scope) {
     $scope.notes = [
