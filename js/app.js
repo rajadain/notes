@@ -29,6 +29,10 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
         }
       ]
     });
+
+    $scope.removeNote = function(index) {
+      $localStorage.notes.splice(index, 1);
+    }
   })
 
   .controller('CreateNoteCtrl', function($scope, $localStorage, $location) {
