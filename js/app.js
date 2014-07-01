@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('notes-app', ['ngRoute'])
+angular.module('notes-app', ['ngRoute', 'ngStorage'])
 
   .config(function($routeProvider) {
     $routeProvider
