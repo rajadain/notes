@@ -31,7 +31,7 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
     });
   })
 
-  .controller('CreateNoteCtrl', function($scope, $localStorage) {
+  .controller('CreateNoteCtrl', function($scope, $localStorage, $location) {
     $scope.$storage = $localStorage;
 
     $scope.note = {
@@ -40,6 +40,11 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
       "created": new Date(),
       "modified": new Date(),
       "liked": false
+    };
+
+    $scope.saveNote = function() {
+      $localStorage.notes.push($scope.note);
+      $location.path('/all');
     };
   })
 
