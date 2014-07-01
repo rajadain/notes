@@ -17,19 +17,23 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
       });
   })
 
-  .controller('NotesListCtrl', function($scope) {
-    $scope.notes = [
-      {
-        "title": "Sample Note",
-        "content": "This is some sample content for this sample note.",
-        "created": new Date(1404010593 * 1000),
-        "modified": new Date(1404010731 * 1000),
-        "liked": false
-      }
-    ];
+  .controller('NotesListCtrl', function($scope, $localStorage) {
+    $scope.$storage = $localStorage.$default({
+      "notes": [
+        {
+          "title": "Sample Note",
+          "content": "This is some sample content for this sample note.",
+          "created": new Date(1404010593 * 1000),
+          "modified": new Date(1404010731 * 1000),
+          "liked": false
+        }
+      ]
+    });
   })
 
-  .controller('CreateNoteCtrl', function($scope) {
+  .controller('CreateNoteCtrl', function($scope, $localStorage) {
+    $scope.$storage = $localStorage;
+
     $scope.note = {
       "title": "Note Title",
       "content": "",
