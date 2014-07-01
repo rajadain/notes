@@ -8,6 +8,10 @@ angular.module('notes-app', ['ngRoute'])
         controller: 'NotesListCtrl',
         templateUrl: 'views/list.html'
       })
+      .when('/new', {
+        controller: 'CreateNoteCtrl',
+        templateUrl: 'views/note.html'
+      })
       .otherwise({
         redirectTo: '/all'
       });
@@ -23,6 +27,16 @@ angular.module('notes-app', ['ngRoute'])
         "liked": false
       }
     ];
+  })
+
+  .controller('CreateNoteCtrl', function($scope) {
+    $scope.note = {
+      "title": "Note Title",
+      "content": "",
+      "created": new Date(),
+      "modified": new Date(),
+      "liked": false
+    };
   })
 
 ;
