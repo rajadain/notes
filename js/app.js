@@ -40,8 +40,6 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
   })
 
   .controller('CreateNoteCtrl', function($scope, $localStorage, $location) {
-    $scope.$storage = $localStorage;
-
     $scope.note = {
       "title": "Note Title",
       "content": "",
