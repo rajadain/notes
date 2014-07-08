@@ -50,6 +50,10 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
       $localStorage.notes.push($scope.note);
       $location.path('/all');
     };
+
+    $scope.removeNote = function() {
+      $location.path('/all');
+    }
   })
 
 ;
