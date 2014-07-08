@@ -12,6 +12,10 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
         controller: 'CreateNoteCtrl',
         templateUrl: 'views/note.html'
       })
+      .when('/edit/:noteId', {
+        controller: 'EditNoteCtrl',
+        templateUrl: 'views/note.html'
+      })
       .otherwise({
         redirectTo: '/all'
       });
@@ -54,6 +58,19 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
     $scope.removeNote = function() {
       $location.path('/all');
     }
+  })
+
+  .controller('EditNoteCtrl', function($scope, $localStorage, $location, $routeParams) {
+    $scope.note = $localStorage.notes[$routeParams.noteId];
+
+    $scope.removeNote = function(index) {
+      $localStorage.notes.splice(index, 1);
+      $location.path('/all');
+    }
+
+    $scope.saveNote = function() {
+      $location.path('/all');
+    };
   })
 
 ;
