@@ -22,7 +22,7 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
   })
 
   .controller('NotesListCtrl', function($scope, $localStorage) {
-    $scope.$storage = $localStorage.$default({
+    $scope.notes = $localStorage.$default({
       "notes": [
         {
           "title": "Sample Note",
@@ -32,7 +32,7 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
           "liked": false
         }
       ]
-    });
+    }).notes;
 
     $scope.removeNote = function(index) {
       $localStorage.notes.splice(index, 1);
