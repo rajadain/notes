@@ -67,6 +67,7 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
     }
 
     $scope.saveNote = function() {
+      $scope.note.modified = new Date();
       $location.path('/all');
     };
   })
