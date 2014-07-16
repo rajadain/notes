@@ -41,11 +41,11 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
 
   .controller('CreateNoteCtrl', function($scope, $localStorage, $location) {
     $scope.note = {
-      "title": "Note Title",
-      "content": "",
-      "created": new Date(),
-      "modified": new Date(),
-      "liked": false
+      title   : "Note Title",
+      content : "",
+      created : new Date(),
+      modified: new Date(),
+      liked   : false,
     };
 
     $scope.saveNote = function() {
@@ -66,7 +66,7 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
       content : $scope.note.content,
       created : $scope.note.created,
       modified: $scope.note.modified,
-      liked   : $scope.note.liked
+      liked   : $scope.note.liked,
     }
 
     $scope.removeNote = function(index) {
