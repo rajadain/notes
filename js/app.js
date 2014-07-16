@@ -60,6 +60,7 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
 
   .controller('EditNoteCtrl', function($scope, $localStorage, $location, $routeParams) {
     $scope.note = $localStorage.notes[$routeParams.noteId];
+    $scope.showCancel = true;
 
     $scope.removeNote = function(index) {
       $localStorage.notes.splice(index, 1);
