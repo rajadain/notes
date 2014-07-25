@@ -91,17 +91,11 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
     $scope.removeNote = Notes.del;
   })
 
-  .controller('CreateNoteCtrl', function($scope, $localStorage, $location) {
-    $scope.note = {
-      title   : "Note Title",
-      content : "",
-      created : new Date(),
-      modified: new Date(),
-      liked   : false,
-    };
+  .controller('CreateNoteCtrl', function($scope, Notes, $location) {
+    $scope.note = Notes.new();
 
     $scope.saveNote = function() {
-      $localStorage.notes.push($scope.note);
+      Notes.add($scope.note);
       $location.path('/all');
     };
 
