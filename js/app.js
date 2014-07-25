@@ -28,7 +28,7 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
 
     NoteService.all = function() {
       return notes;
-    }
+    };
 
     NoteService.new = function() {
       var thisId = nextId++;
@@ -82,7 +82,8 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
       })
       .otherwise({
         redirectTo: '/all'
-      });
+      })
+    ;
   })
 
   .controller('NotesListCtrl', function($scope, Notes) {
@@ -101,7 +102,7 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
 
     $scope.removeNote = function() {
       $location.path('/all');
-    }
+    };
   })
 
   .controller('EditNoteCtrl', function($scope, Notes, $location, $routeParams) {
@@ -114,12 +115,12 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
       created : $scope.note.created,
       modified: $scope.note.modified,
       liked   : $scope.note.liked,
-    }
+    };
 
     $scope.removeNote = function() {
       Notes.del($scope.note.id);
       $location.path('/all');
-    }
+    };
 
     $scope.cancelNote = function() {
       $scope.note.id       = $scope.oldNote.id;
@@ -129,7 +130,7 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
       $scope.note.modified = $scope.oldNote.modified;
       $scope.note.liked    = $scope.oldNote.liked;
       $location.path('/all');
-    }
+    };
 
     $scope.saveNote = function() {
       $scope.note.modified = new Date();
