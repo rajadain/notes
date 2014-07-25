@@ -104,10 +104,11 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
     }
   })
 
-  .controller('EditNoteCtrl', function($scope, $localStorage, $location, $routeParams) {
-    $scope.note = $localStorage.notes[$routeParams.noteId];
+  .controller('EditNoteCtrl', function($scope, Notes, $location, $routeParams) {
+    $scope.note = Notes.get($routeParams.noteId);
     $scope.showCancel = true;
     $scope.oldNote = {
+      id      : $scope.note.id,
       title   : $scope.note.title,
       content : $scope.note.content,
       created : $scope.note.created,
@@ -115,12 +116,13 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
       liked   : $scope.note.liked,
     }
 
-    $scope.removeNote = function(index) {
-      $localStorage.notes.splice(index, 1);
+    $scope.removeNote = function() {
+      Notes.del($scope.note.id);
       $location.path('/all');
     }
 
     $scope.cancelNote = function() {
+      $scope.note.id       = $scope.oldNote.id;
       $scope.note.title    = $scope.oldNote.title;
       $scope.note.content  = $scope.oldNote.content;
       $scope.note.created  = $scope.oldNote.created;
