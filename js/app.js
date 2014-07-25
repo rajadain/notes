@@ -72,6 +72,10 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
         controller: 'NotesListCtrl',
         templateUrl: 'views/list.html'
       })
+      .when('/fav', {
+        controller: 'FavNotesListCtrl',
+        templateUrl: 'views/list.html'
+      })
       .when('/new', {
         controller: 'CreateNoteCtrl',
         templateUrl: 'views/note.html'
@@ -88,6 +92,12 @@ angular.module('notes-app', ['ngRoute', 'ngStorage'])
 
   .controller('NotesListCtrl', function($scope, Notes) {
     $scope.notes = Notes.all();
+
+    $scope.removeNote = Notes.del;
+  })
+
+  .controller('FavNotesListCtrl', function($scope, Notes) {
+    $scope.notes = Notes.all().filter(function(note) { return note.liked });
 
     $scope.removeNote = Notes.del;
   })
