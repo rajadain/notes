@@ -1,11 +1,11 @@
-(function (){
+(function() {
   angular
     .module('notes-app')
     .factory('noteService', noteService);
 
   function noteService($localStorage) {
-    var notes = init();
-    var next  = notes.length || 1;
+    var notes;
+    var next;
 
     var noteService = {
       get: getNote,
@@ -14,21 +14,25 @@
       add: addNote,
       del: delNote,
     };
+
+    initialize();
     return noteService;
 
-    function init() {
-      return $localStorage.$default({
+    function initialize() {
+      notes = $localStorage.$default({
        notes: [
-         {
-           id      : 0,
-           title   : "Sample Note",
-           content : "This is some sample content for this sample note.",
-           created : new Date(1404010593 * 1000),
-           modified: new Date(1404010731 * 1000),
-           liked   : false,
-         }
-       ]
-     }).notes;
+          {
+            id      : 0,
+            title   : "Sample Note",
+            content : "This is some sample content for this sample note.",
+            created : new Date(1404010593 * 1000),
+            modified: new Date(1404010731 * 1000),
+            liked   : false,
+          }
+        ]
+      }).notes;
+
+      next = notes.length || 1;
     }
 
     function getNote(id) {
