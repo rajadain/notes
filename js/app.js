@@ -2,30 +2,6 @@
 
 angular.module('notes-app', ['ngRoute', 'ngStorage'])
 
-  .config(function($routeProvider) {
-    $routeProvider
-      .when('/all', {
-        controller: 'NotesListCtrl',
-        templateUrl: 'views/list.html'
-      })
-      .when('/fav', {
-        controller: 'FavNotesListCtrl',
-        templateUrl: 'views/list.html'
-      })
-      .when('/new', {
-        controller: 'CreateNoteCtrl',
-        templateUrl: 'views/note.html'
-      })
-      .when('/edit/:noteId', {
-        controller: 'EditNoteCtrl',
-        templateUrl: 'views/note.html'
-      })
-      .otherwise({
-        redirectTo: '/all'
-      })
-    ;
-  })
-
   .controller('NotesListCtrl', function($scope, noteService) {
     $scope.notes = noteService.all();
 
