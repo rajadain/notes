@@ -3,31 +3,19 @@
     .module('notes-app')
     .config(routes);
 
-  function routes($routeProvider) {
-    $routeProvider
-      .when('/all', {
-        controller: 'List',
-        controllerAs: 'vm',
+  function routes($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('list', {
+        url: '/list/:listId',
+        controller: 'List as vm',
         templateUrl: 'views/list.html'
       })
-      .when('/fav', {
-        controller: 'List',
-        controllerAs: 'vm',
-        templateUrl: 'views/list.html'
-      })
-      .when('/new', {
-        controller: 'Note',
-        controllerAs: 'vm',
+      .state('note', {
+        url: '/note/:noteId',
+        controller: 'Note as vm',
         templateUrl: 'views/note.html'
-      })
-      .when('/edit/:noteId', {
-        controller: 'Note',
-        controllerAs: 'vm',
-        templateUrl: 'views/note.html'
-      })
-      .otherwise({
-        redirectTo: '/all'
-      })
-    ;
+      });
+
+    $urlRouterProvider.otherwise('/list/all');
   }
 })();
