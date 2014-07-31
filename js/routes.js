@@ -6,11 +6,13 @@
   function routes($routeProvider) {
     $routeProvider
       .when('/all', {
-        controller: 'NotesListCtrl',
+        controller: 'List',
+        controllerAs: 'vm',
         templateUrl: 'views/list.html'
       })
       .when('/fav', {
-        controller: 'FavNotesListCtrl',
+        controller: 'List',
+        controllerAs: 'vm',
         templateUrl: 'views/list.html'
       })
       .when('/new', {

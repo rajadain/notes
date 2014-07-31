@@ -7,7 +7,7 @@
   </div>
 </div>
 <!-- List of notes -->
-<div class="col-md-4" ng-repeat="note in notes | orderBy: 'id'">
+<div class="col-md-4" ng-repeat="note in vm.notes | orderBy: 'id'">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">{{ note.title }}</h3>
@@ -21,7 +21,7 @@
           <input type="checkbox" ng-model="note.liked"> Favorite
         </label>
         <a class="btn btn-default" href="#/edit/{{ note.id }}">Edit</a>
-        <button type="button" class="btn btn-default" ng-click="removeNote(note.id)">Delete</button>
+        <button type="button" class="btn btn-default" ng-click="vm.remove(note.id)">Delete</button>
       </div>
     </div>
   </div>
