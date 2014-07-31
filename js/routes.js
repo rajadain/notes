@@ -14,11 +14,13 @@
         templateUrl: 'views/list.html'
       })
       .when('/new', {
-        controller: 'CreateNoteCtrl',
+        controller: 'Note',
+        controllerAs: 'vm',
         templateUrl: 'views/note.html'
       })
       .when('/edit/:noteId', {
-        controller: 'EditNoteCtrl',
+        controller: 'Note',
+        controllerAs: 'vm',
         templateUrl: 'views/note.html'
       })
       .otherwise({
