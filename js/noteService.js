@@ -13,6 +13,7 @@
       new: newNote,
       add: addNote,
       del: delNote,
+      copy: copyNote,
     };
 
     initialize();
@@ -76,6 +77,17 @@
         }
       }
       return null;
+    }
+
+    function copyNote(note) {
+      return {
+        id      : note.id      ,
+        title   : note.title   ,
+        content : note.content ,
+        created : note.created ,
+        modified: note.modified,
+        liked   : note.liked   ,
+      };
     }
   }
 })();
