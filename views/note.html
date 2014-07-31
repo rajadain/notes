@@ -10,7 +10,7 @@
       <div class="panel-footer">
         <button type="button" class="btn btn-danger" ng-click="vm.remove()">Delete</button>
         <div class="pull-right">
-          <button type="button" class="btn btn-default" ng-click="vm.cancel()" ng-if="vm.isEdit">Cancel</button>
+          <button type="button" class="btn btn-default" ng-click="vm.cancel()" ng-if="!vm.isNew">Cancel</button>
           <button type="button" class="btn btn-primary" ng-click="vm.save()">Save</button>
         </div>
       </div>

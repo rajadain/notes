@@ -3,9 +3,9 @@
     .module('notes-app')
     .controller('Note', Note);
 
-  function Note(noteService, $location, $routeParams) {
+  function Note(noteService, $stateParams, $state) {
     var vm = this;
-    vm.isEdit = ($location.absUrl().indexOf("edit") > -1);
+    vm.isNew = ($stateParams.noteId == "new");
 
     vm.note = getNote();
 
@@ -14,35 +14,35 @@
     vm.cancel = cancel;
 
     function getNote() {
-      if (vm.isEdit) {
-        var currentNote = noteService.get($routeParams.noteId);
+      if (vm.isNew) {
+        return noteService.new();
+      } else {
+        var currentNote = noteService.get($stateParams.noteId);
         vm.oldNote = noteService.copy(currentNote);
         return currentNote;
-      } else {
-        return noteService.new();
       }
     }
 
     function save() {
       vm.note.modified = new Date();
-      if (!vm.isEdit)
+      if (vm.isNew)
         noteService.add(vm.note);
 
-      $location.path('/all');
+      $state.go('list', { listId: "all" });
     }
 
     function remove() {
-      if (vm.isEdit)
+      if (!vm.isNew)
         noteService.del(vm.note.id);
 
-      $location.path('/all');
+      $state.go('list', { listId: "all" });
     }
 
     function cancel() {
       noteService.del(vm.note.id);
       noteService.add(vm.oldNote);
 
-      $location.path('/all');
+      $state.go('list', { listId: "all" });
     }
   }
 })();
