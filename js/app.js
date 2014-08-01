@@ -1,7 +1,7 @@
 (function() {
   angular
     .module('notes-app', [
-      'ngRoute',
+      'ui.router',
       'ngStorage',
     ]);
 })();
