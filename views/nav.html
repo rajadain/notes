@@ -6,21 +6,14 @@
     <a href="#/list/fav">Favorites</a>
   </li>
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Folders <span class="caret"></span></a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Lists <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
       <li>
-        <a href="#">Personal</a>
+        <a href="#">Create List</a>
       </li>
-      <li>
-        <a href="#">Work</a>
-      </li>
-      <li class="divider"></li>
-      <li>
-        <a href="#">Create Folder</a>
-      </li>
-      <li class="divider"></li>
-      <li>
-        <a href="#">Edit Folders</a>
+      <li ng-if="vm.userLists" class="divider"></li>
+      <li ng-if="vm.userLists" ng-repeat="list in vm.userLists | orderBy: 'name'">
+        <a ui-sref="list({ listId: list.id })">{{ list.name }}</a>
       </li>
     </ul>
   </li>
