@@ -29,6 +29,7 @@
             created : new Date(1404010593 * 1000),
             modified: new Date(1404010731 * 1000),
             liked   : false,
+            lists   : [],
           }
         ]
       }).notes;
@@ -55,6 +56,7 @@
         created : new Date(),
         modified: new Date(),
         liked   : false,
+        lists   : [],
       };
     }
 
@@ -87,6 +89,7 @@
         created : note.created ,
         modified: note.modified,
         liked   : note.liked   ,
+        lists   : note.lists   ,
       };
     }
   }

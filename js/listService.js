@@ -26,12 +26,7 @@
       // We add a function to each item here because
       // it is not saved in localStorage.
       for (var i = 0; i < lists.length; i++) {
-        lists[i].notes = function() {
-          // For all regular lists, this trivial function simply returns
-          // the underlying array. We create this function to make the
-          // interface consistent with "special" lists such as all and fav.
-          return this._notes;
-        }
+        lists[i].notes = notes;
       }
 
       var allList = {
@@ -66,6 +61,20 @@
       delList(favList.id); lists.push(favList);
     }
 
+    function notes() {
+      var listId = this.id;
+      return noteService.all().filter(
+        function(note) {
+          for (var j = 0; j < note.lists.length; j++) {
+            if (note.lists[j] == listId) {
+              return true;
+            }
+          }
+          return false;
+        }
+      );
+    }
+
     function getList(id) {
       for (var i = 0; i < lists.length; i++) {
         if (lists[i].id == id) {
@@ -87,10 +96,7 @@
           name    : name,
           created : new Date(),
           modified: new Date(),
-          _notes  : [],
-          notes   : function() {
-            return _notes;
-          },
+          notes   : notes,
         };
         lists.push(newList);
         return newList;
@@ -104,28 +110,28 @@
       var note = noteService.get(noteId);
       if (list != null && note != null) {
         var alreadyInList = false;
-        for (var i = 0; i < list._notes.length; i++) {
-          if (list._notes[i].id == noteId) {
+        for (var i = 0; i < note.lists.length; i++) {
+          if (note.lists[i] == list.id) {
             alreadyInList = true;
           }
         }
         if (!alreadyInList) {
-          list._notes.push(note);
-          list.modified = new Date();
-          return true;
+          note.lists.push(list.id);
+          note.modified = new Date();
         }
+        return true;
       }
       return false;
     }
 
     function delFromList(listId, noteId) {
-      var list = getList(listId);
-      if (list != null) {
-        for (var i = 0; i < list._notes.length; i++) {
-          if (list._notes[i].id == noteId) {
-            list._notes.splice(i, 1);
-            list.modified = new Date();
-            return noteService.getNote(noteId);
+      var note = noteService.get(noteId);
+      if (note != null) {
+        for (var i = 0; i < note.lists.length; i++) {
+          if (note.lists[i] == listId) {
+            note.lists.splice(i, 1);
+            note.modified = new Date();
+            return note;
           }
         }
       }
