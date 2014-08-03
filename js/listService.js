@@ -20,23 +20,50 @@
 
     function initialize() {
       lists = $localStorage.$default({
-        lists: [
-          {
-            id      : "all",
-            name    : "All Notes",
-            notes   : noteService.all(),
-            created : new Date(),
-            modified: new Date(),
-          },
-          {
-            id      : "fav",
-            name    : "Favorites",
-            notes   : noteService.all().filter(function(note) { return note.liked; }),
-            created : new Date(),
-            modified: new Date(),
-          },
-        ]
+        lists: []
       }).lists;
+
+      // We add a function to each item here because
+      // it is not saved in localStorage.
+      for (var i = 0; i < lists.length; i++) {
+        lists[i].notes = function() {
+          // For all regular lists, this trivial function simply returns
+          // the underlying array. We create this function to make the
+          // interface consistent with "special" lists such as all and fav.
+          return this._notes;
+        }
+      }
+
+      var allList = {
+        id      : "all",
+        name    : "All Notes",
+        created : new Date(),
+        modified: new Date(),
+        notes   : function() {
+          // Return all notes.
+          return noteService.all();
+        },
+      };
+
+      var favList = {
+        id      : "fav",
+        name    : "Favorites",
+        created : new Date(),
+        modified: new Date(),
+        notes   : function() {
+          // Return only those notes where note.liked is true
+          return noteService.all().filter(
+            function(note) {
+              return note.liked;
+            }
+          );
+        },
+      };
+
+      // Delete and re-add special lists to collection, since otherwise
+      // they will have the incorrect notes() function assigned to them.
+      delList(allList.id); lists.push(allList);
+      delList(favList.id); lists.push(favList);
     }
 
     function getList(id) {
@@ -58,9 +85,12 @@
         var newList = {
           id      : id,
           name    : name,
-          notes   : [],
           created : new Date(),
           modified: new Date(),
+          _notes  : [],
+          notes   : function() {
+            return _notes;
+          },
         };
         lists.push(newList);
         return newList;
@@ -74,13 +104,13 @@
       var note = noteService.get(noteId);
       if (list != null && note != null) {
         var alreadyInList = false;
-        for (var i = 0; i < list.notes.length; i++) {
-          if (list.notes[i].id == noteId) {
+        for (var i = 0; i < list._notes.length; i++) {
+          if (list._notes[i].id == noteId) {
             alreadyInList = true;
           }
         }
         if (!alreadyInList) {
-          list.notes.push(note);
+          list._notes.push(note);
           list.modified = new Date();
           return true;
         }
@@ -91,9 +121,9 @@
     function delFromList(listId, noteId) {
       var list = getList(listId);
       if (list != null) {
-        for (var i = 0; i < list.notes.length; i++) {
-          if (list.notes[i].id == noteId) {
-            list.notes.splice(i, 1);
+        for (var i = 0; i < list._notes.length; i++) {
+          if (list._notes[i].id == noteId) {
+            list._notes.splice(i, 1);
             list.modified = new Date();
             return noteService.getNote(noteId);
           }
