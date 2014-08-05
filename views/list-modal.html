@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h3 class="modal-title">Create New List</h3>
+</div>
+<div class="modal-body">
+  <alert ng-repeat="alert in vm.alerts" type="{{ alert.type }}" close="vm.closeAlert($index)">{{ alert.message }}</alert>
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="list-id">URL</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="list-id" ng-model="vm.listId" ng-require="true" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="list-name">Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="list-name" ng-model="vm.listName" ng-require="true" />
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default pull-left" ng-click="vm.dismiss()">Cancel</button>
+  <button type="button" class="btn btn-primary pull-right" ng-click="vm.createNewList()">Create New List</button>
+</div>

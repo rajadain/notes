@@ -7,13 +7,29 @@
     $stateProvider
       .state('list', {
         url: '/list/:listId',
-        controller: 'List as vm',
-        templateUrl: 'views/list.html'
+        views: {
+          ''   : {
+            controller: 'List as vm',
+            templateUrl: 'views/list.html',
+          },
+          'nav': {
+            controller: 'Nav as vm',
+            templateUrl: 'views/nav.html',
+          }
+        }
       })
       .state('note', {
         url: '/note/:noteId',
-        controller: 'Note as vm',
-        templateUrl: 'views/note.html'
+        views: {
+          ''   : {
+            controller: 'Note as vm',
+            templateUrl: 'views/note.html',
+          },
+          'nav': {
+            controller: 'Nav as vm',
+            templateUrl: 'views/nav.html',
+          }
+        }
       });
 
     $urlRouterProvider.otherwise('/list/all');
