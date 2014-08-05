@@ -1,9 +1,9 @@
 <ul class="nav navbar-nav">
-  <li class="active">
-    <a href="#/list/all">All Notes</a>
+  <li ui-sref-active="active">
+    <a ui-sref="list({ listId: 'all' })">All Notes</a>
   </li>
-  <li>
-    <a href="#/list/fav">Favorites</a>
+  <li ui-sref-active="active">
+    <a ui-sref="list({ listId: 'fav' })">Favorites</a>
   </li>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Lists <span class="caret"></span></a>
@@ -12,7 +12,7 @@
         <a href="#">Create List</a>
       </li>
       <li ng-if="vm.userLists" class="divider"></li>
-      <li ng-if="vm.userLists" ng-repeat="list in vm.userLists | orderBy: 'name'">
+      <li ng-if="vm.userLists" ng-repeat="list in vm.userLists | orderBy: 'name'" ui-sref-active="active">
         <a ui-sref="list({ listId: list.id })">{{ list.name }}</a>
       </li>
     </ul>
